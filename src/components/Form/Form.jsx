@@ -2,21 +2,24 @@ import { useState } from 'react';
 import { BsSearch} from 'react-icons/bs';
 import PropTypes from 'prop-types';
 import { Container, Form, Field, Label, Input, Button } from './Form.styled';
-
+import { toast } from 'react-toastify';
 
 export const SearchForm = ({ onSubmit }) => {
     const [query, setQuery] = useState('')
-  
+    
     const handleChange = e => setQuery(e.target.value);
 
     const submitHandler = e => {
       e.preventDefault();
+
+      if(query.trim() === "") { 
+        return toast("Wrong query"); 
+      }
       onSubmit(query);
       resetForm();
     };
   
     const resetForm = () => setQuery('');
-
 
     return (
             <Container>

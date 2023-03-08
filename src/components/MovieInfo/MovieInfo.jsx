@@ -1,37 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { fetchMovieDetails } from 'api/fetchAPI';
-import { BallTriangle } from 'react-loader-spinner'
+import React from 'react';
 import { Container, Content, Link } from './MovieInfo.styled';
 import defaultPicture from '../../images/no-poster.jpg';
 import PropTypes from 'prop-types';
 
 const MovieInfo = ({ movie, backPath}) => {
-    const [movieInfo, setMovieInfo] = useState(null);
-  
-    useEffect(() => {
-      const fetchMovie = async () => {
-        try {
-          const data = await fetchMovieDetails(movie.id);
-          setMovieInfo(data);
-        } catch (error) {
-          console.log(error);
-        }
-      };
-      fetchMovie();
-    }, [movie.id]);
-  
 
-  if (!movieInfo) {
-    return <BallTriangle/>;
-  }
-
-  const { poster_path, title, vote_average, genres, overview } = movieInfo;
+  const { poster_path, title, vote_average, genres, overview } = movie;
 
   return (
     <Container>
       <img
         src={
-        poster_path !== null
+        poster_path
         ? `https://image.tmdb.org/t/p/w500/${poster_path}`
             : defaultPicture
             }
@@ -39,9 +19,9 @@ const MovieInfo = ({ movie, backPath}) => {
         />
     <Content>
         <h1>{title}</h1>
-        <p>Rating: {vote_average}</p>
-        <p>Genres: {genres.map(genre => genre.name).join(', ')}</p>
-        <p>{overview}</p>
+            <p>Rating: {vote_average.toFixed(1)}</p>
+            <p>Genres: {genres.map(genre => genre.name).join(', ')}</p>
+            <p>{overview}</p>
         <Link to="cast" state={{ from: backPath }}>
             Cast
         </Link>

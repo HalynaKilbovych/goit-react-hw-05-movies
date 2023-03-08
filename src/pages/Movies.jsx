@@ -3,22 +3,31 @@ import { useSearchParams } from 'react-router-dom';
 import { MoviesList } from 'components/MovieList/MovieList';
 import { SearchForm } from 'components/Form/Form';
 import { fetchSearchMovies } from 'api/fetchAPI';
-import { BallTriangle } from 'react-loader-spinner'
-
+import { Loader } from "components/Loader/Loader";
+import { toast } from 'react-toastify';
 
 const Movies = () => {
   const [movies, setMovies] = useState(null);
   const [onLoad, setOnLoad] = useState(false);
+  const [error, setError] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const searchValue = searchParams.get('query') ?? '';
 
   useEffect(() => {
     if (!searchValue) return;
     setOnLoad(true);
-    fetchSearchMovies(searchValue).then(response => {
-      setMovies([...response]);
-      setOnLoad(false);
-    });
+    const searchMovies = async () => {
+      try {
+        const data = await fetchSearchMovies(searchValue);
+        setMovies(data);
+      } catch (error) {
+        setError(
+            toast('Something wrong')
+        );
+      }
+    };
+    searchMovies();
+    setOnLoad(false);
   }, [searchValue]);
 
   const onInputSearch = value => {
@@ -28,7 +37,8 @@ const Movies = () => {
   return (
     <main>
       <SearchForm onSubmit={onInputSearch} />
-      {onLoad && <BallTriangle />}
+      {onLoad && <Loader />}
+      {error && <div>{setError}</div>}
       {movies && <MoviesList movies={movies} />}
     </main>
   );

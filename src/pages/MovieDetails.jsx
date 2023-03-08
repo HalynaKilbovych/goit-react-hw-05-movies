@@ -3,26 +3,39 @@ import { useParams, useLocation, Outlet} from 'react-router-dom';
 import { fetchMovieDetails } from 'api/fetchAPI';
 import MovieInfo from 'components/MovieInfo/MovieInfo';
 import { BackButton } from 'components/MovieInfo/MovieInfo.styled';
-import { BallTriangle } from 'react-loader-spinner';
+import { Loader } from "components/Loader/Loader";
+import { toast } from 'react-toastify';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const [onLoad, setOnLoad] = useState(false);
+  const [error, setError] = useState(''); 
+
   const location = useLocation();
   const backLink = location.state?.from ?? '/';
 
+
   useEffect(() => {
+    setOnLoad(true);
     const getMovieDetails = async () => {
-      const movieDetails = await fetchMovieDetails(movieId);
-      setMovie(movieDetails);
+      try {
+        const data = await fetchMovieDetails(movieId);
+        setMovie(data);
+      } catch (error) {
+        setError(
+            toast('Something wrong')
+        );
+      }
     };
     getMovieDetails();
+    setOnLoad(false);
   }, [movieId]);
 
-  if (!movie) return <BallTriangle />;
-
     return (
-        <main style={{ padding: '0 60px 40px 60px' }}>
+        <main>
+        {onLoad && <Loader />}
+        {error && <div>{setError}</div>}
           {movie && (
             <>
             <BackButton to={backLink}>Go back</BackButton>
@@ -30,7 +43,7 @@ const MovieDetails = () => {
             </>
           )}
     
-          <Suspense fallback={<BallTriangle />}>
+          <Suspense fallback={<Loader />}>
             <Outlet />
           </Suspense>
         </main>

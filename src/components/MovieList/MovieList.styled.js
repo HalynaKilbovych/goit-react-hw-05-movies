@@ -24,6 +24,18 @@ export const CardWrapper = styled.div`
     height: 365px;
     object-fit: cover;
   }
+
+@media only screen and (min-width: 320px) {
+  flex-basis: 100%;
+}
+
+@media only screen and (min-width: 760px) {
+  flex-basis: 40%;
+}
+
+@media only screen and (min-width: 1200px) {
+  flex-basis: calc((100% - 50px) / 5);
+}
 `;
 
 export const MovieName = styled.p`

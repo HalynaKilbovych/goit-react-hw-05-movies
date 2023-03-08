@@ -1,4 +1,4 @@
-import { Character,Name, Image, List, Item} from './Cast.styled';
+import { Character,Name, Image, List, Item} from './CastList.styled';
 import defaultPicture from '../../images/no-poster.jpg';
 import PropTypes from 'prop-types';
 

@@ -1,8 +1,9 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Outlet} from 'react-router-dom';
 import { SharedLayout } from './SharedLayout/SharedLayout';
 import { Page404 } from 'pages/Page404';
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import { ToastContainer } from 'react-toastify';
+import { Loader } from './Loader/Loader';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -27,6 +28,9 @@ export const App = () => {
           <Route path="*" element={<Page404 />} />
         </Route>
       </Routes>
+      <Suspense fallback={<Loader />}>
+          <Outlet />
+      </Suspense>
     </div>
   );
 };
