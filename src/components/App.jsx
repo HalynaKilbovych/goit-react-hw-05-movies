@@ -1,4 +1,4 @@
-import { Route, Routes, Outlet} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { SharedLayout } from './SharedLayout/SharedLayout';
 import { Page404 } from 'pages/Page404';
 import { lazy, Suspense } from 'react';
@@ -17,6 +17,7 @@ export const App = () => {
   return (
     <div>
       <ToastContainer />
+      <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />} />
@@ -28,8 +29,6 @@ export const App = () => {
           <Route path="*" element={<Page404 />} />
         </Route>
       </Routes>
-      <Suspense fallback={<Loader />}>
-          <Outlet />
       </Suspense>
     </div>
   );

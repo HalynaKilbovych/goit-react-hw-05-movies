@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 export const Wrapper = styled.div`
     display: flex;
@@ -16,12 +15,9 @@ export const Title = styled.h2`
 `
 
 
-export const GoHomeLink = styled(Link)`
-  padding: 8px 16px;
-  text-decoration: none;
+export const GoHome = styled.p`
   color:  orangered;
   font-weight: 500;
-  max-width: 150px;
   text-align: center;
   font-size: 12px;
 `;

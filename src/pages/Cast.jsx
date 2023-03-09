@@ -19,19 +19,18 @@ const Cast = () => {
         const data = await fetchMovieCredits(movieId);
         setMovieCast(data);
       } catch (error) {
-        setError(
-            toast('The is no cast here')
-        );
+        setError('Something wrong');
+      } finally { 
+        setOnLoad(false);
       }
     };
     fetchMovieCast();
-    setOnLoad(false);
   }, [movieId]);
 
   return <>
     { onLoad && <Loader />}
     {movieCast && <CastList cast={movieCast} />}
-    {error && <div>{setError}</div>}
+    {error && <div>{toast(error)}</div>}
   </>;
 };
 

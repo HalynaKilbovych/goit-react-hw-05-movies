@@ -1,20 +1,32 @@
 import img404 from '../images/img404.jpg';
-import { useLocation } from 'react-router-dom';
-import { Wrapper, GoHomeLink, Title } from './Page404.styled';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Wrapper, GoHome, Title } from './Page404.styled';
 
 export const Page404 = () => {
-    const location = useLocation();
+    const navigate = useNavigate();
+    const [countdown, setCountdown] = useState(5);
+    useEffect(() => {
+        const timer = setInterval(() => {
+        setCountdown((prevCountdown) => prevCountdown - 1);
+    }, 1000);
+        return () => clearInterval(timer);
+    }, []);
 
-  return (
+    useEffect(() => {
+        if (countdown === 0) {
+        navigate('/');
+    }
+    }, [countdown, navigate]);
+
+    return (
     <Wrapper>
-      <Title>404</Title>
-      <p>
-        Sorry, we can't find this page! But don't worry, it's still great!
-      </p>
-      <GoHomeLink to={`/`} state={{ from: location }}>Take me home
-      </GoHomeLink>
-      <img src={img404} alt="404" style={{ display: 'block', margin: 'auto' }} />
-      
+        <Title>404</Title>
+        <p>
+            Sorry, we can't find this page! But don't worry, it's still great!
+        </p>
+        <GoHome> You will be relocated to Home Page in {countdown} seconds</GoHome>
+        <img src={img404} alt="404" style={{ display: 'block', margin: 'auto' }} />
     </Wrapper>
-  );
-};
+    );
+    };

@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 export const SearchForm = ({ onSubmit }) => {
     const [query, setQuery] = useState('')
-    
+
     const handleChange = e => setQuery(e.target.value);
 
     const submitHandler = e => {
@@ -25,6 +25,9 @@ export const SearchForm = ({ onSubmit }) => {
             <Container>
             <Form onSubmit={submitHandler}>
                 <Field>
+                <Button type="submit">
+                <BsSearch size={24} />
+                </Button>
                 <Input
                     type="text"
                     name="query"
@@ -34,10 +37,8 @@ export const SearchForm = ({ onSubmit }) => {
                     onChange={handleChange}
                 />
                 <Label>Search movies</Label>
+
                 </Field>
-                <Button type="submit">
-                <BsSearch size={24} />
-                </Button>
             </Form>
             </Container>
     );

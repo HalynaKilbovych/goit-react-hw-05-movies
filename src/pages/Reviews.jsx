@@ -18,19 +18,19 @@ const Reviews = () => {
         const data = await fetchMovieReviews(movieId);
         setMovieReviews(data);
       } catch (error) {
-        setError(
-            toast('Something wrong')
-        );
+        setError('Something wrong');
+      } finally { 
+        setOnLoad(false);
       }
     };
     getReviews();
-    setOnLoad(false);
+
   }, [movieId]);
 
   return <>
     {movieReviews && <ReviewsList reviews={movieReviews} />}
     {onLoad && <Loader />}
-    {error && <div>{setError}</div>}
+    {error && <div>{toast(error)}</div>}
   </>;
 };
 export default Reviews;

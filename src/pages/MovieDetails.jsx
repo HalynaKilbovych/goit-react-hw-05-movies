@@ -23,19 +23,18 @@ const MovieDetails = () => {
         const data = await fetchMovieDetails(movieId);
         setMovie(data);
       } catch (error) {
-        setError(
-            toast('Something wrong')
-        );
+        setError('Something wrong');
+      } finally { 
+        setOnLoad(false);
       }
     };
     getMovieDetails();
-    setOnLoad(false);
   }, [movieId]);
 
     return (
         <main>
         {onLoad && <Loader />}
-        {error && <div>{setError}</div>}
+        {error && <div>{toast(error)}</div>}
           {movie && (
             <>
             <BackButton to={backLink}>Go back</BackButton>

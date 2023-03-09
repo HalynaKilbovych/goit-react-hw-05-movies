@@ -1,11 +1,9 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 1280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Form = styled.form`
@@ -13,14 +11,14 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 24px;
-  margin: 0 auto;
-  margin-bottom: 36px;
-  width: 510px;
+  width: 100%;
+  max-width: 500px;
   border-radius: 15px;
 `;
 
 export const Field = styled.div`
   position: relative;
+  width: 100%;
 `;
 
 export const Label = styled.label`
@@ -48,8 +46,6 @@ export const Label = styled.label`
 export const Input = styled.input`
   width: 100%;
   height: 50px;
-  padding: 8px 16px;
-  padding-right: 42px;
   font-size: 16px;
   letter-spacing: 1.4px;
   color: #ec9706;

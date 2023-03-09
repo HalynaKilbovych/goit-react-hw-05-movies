@@ -17,20 +17,19 @@ const TrendingMovies = () => {
           const data = await fetchTrendingMovies();
           setTrendingFilms(data);
         } catch (error) {
-          setError(
-              toast('Something wrong')
-          );
+          setError('Something wrong');
+        } finally { 
+          setOnLoad(false);
         }
       };
       renderTrendingMovies();
-      setOnLoad(false);
     }, []);
   
   
     return (
       <main>
         {onLoad && <Loader />}
-        {error && <div>{setError}</div>}
+        {error && <div>{toast(error)}</div>}
         {trendingFilms && <MoviesList movies={trendingFilms} />}
       </main>
     );

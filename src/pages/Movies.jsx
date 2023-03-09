@@ -21,13 +21,13 @@ const Movies = () => {
         const data = await fetchSearchMovies(searchValue);
         setMovies(data);
       } catch (error) {
-        setError(
-            toast('Something wrong')
-        );
+        setError('Something wrong');
+      } finally { 
+        setOnLoad(false);
       }
     };
     searchMovies();
-    setOnLoad(false);
+
   }, [searchValue]);
 
   const onInputSearch = value => {
@@ -38,7 +38,7 @@ const Movies = () => {
     <main>
       <SearchForm onSubmit={onInputSearch} />
       {onLoad && <Loader />}
-      {error && <div>{setError}</div>}
+      {error && <div>{toast(error)}</div>}
       {movies && <MoviesList movies={movies} />}
     </main>
   );
